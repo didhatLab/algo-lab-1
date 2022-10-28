@@ -9,7 +9,7 @@ def linear_search(matrix: List[List[int]], target_number: int):
         if matrix[row_index][column_index] == target_number:
             return True
         if matrix[row_index][column_index] > target_number:
-            row_index += 1
+            column_index -= 1
         elif matrix[row_index][column_index] < target_number:
-            row_index -= 1
+            row_index += 1
     return False

@@ -2,7 +2,7 @@ from typing import List
 
 
 def get_target_or_new_column_position(row: List[int], left: int, right: int, target: int):
-    while right > left:
+    while right > left + 1:
         mid = (right + left) // 2
         if row[mid] == target:
             return mid
