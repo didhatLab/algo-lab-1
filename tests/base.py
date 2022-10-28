@@ -18,6 +18,11 @@ class BaseAlgoCases:
             self.non_exist_target1_1 = 13
             self.non_exist_target1_2 = 41
 
+            self.matrix_with_long_row_2 = [
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22]
+            ]
+            self.target2_1 = 8
+
         def test_common(self):
             matrix = [
                 [1, 2, 3],
@@ -69,6 +74,8 @@ class BaseAlgoCases:
             self.assertTrue(self.algo(self.matrix1, self.target1_1))
             self.assertFalse(self.algo(self.matrix1, self.non_exist_target1_1))
             self.assertFalse(self.algo(self.matrix1, self.non_exist_target1_2))
+
+            self.assertTrue(self.algo(self.matrix_with_long_row_2, self.target2_1))
 
     class TestsForAllMatrixGenerators(TestCase):
         generator: Callable[[int, int], Iterable[List[int]]]

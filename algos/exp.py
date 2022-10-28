@@ -2,23 +2,24 @@ from typing import List
 
 
 def find_target_or_get_new_column_position(row: List[int], left: int, right: int, target: int):
-    while right > left:
+    while right >= left:
         mid = (right + left) // 2
         if row[mid] == target:
             return mid
         elif row[mid] > target:
-            right = mid
+            right = mid - 1
         elif row[mid] < target:
-            left = mid
-    return right - 1
+            left = mid + 1
+    return right
 
 
 def find_bounds_for_bin(row: List[int], left: int, right: int, target: int) -> [int, int]:
-    bound = 2
+    bound = 1
 
     while right >= bound and row[left + bound] < target:
         bound *= 2
-    return bound, right
+    # bound >>= 1
+    return bound // 2, min(bound, right)
 
 
 def exp_search(matrix: List[List[int]], target: int):
