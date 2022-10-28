@@ -1,9 +1,8 @@
 from unittest import TestCase
-from typing import Callable, List
+from typing import Callable, List, Iterable
 
 
 class BaseAlgoCases:
-
     class TestsForAllAlgoTests(TestCase):
         algo: Callable[[List[List[int]], int], bool] = None
 
@@ -70,3 +69,17 @@ class BaseAlgoCases:
             self.assertTrue(self.algo(self.matrix1, self.target1_1))
             self.assertFalse(self.algo(self.matrix1, self.non_exist_target1_1))
             self.assertFalse(self.algo(self.matrix1, self.non_exist_target1_2))
+
+    class TestsForAllMatrixGenerators(TestCase):
+        generator: Callable[[int, int], Iterable[List[int]]]
+
+        def test_common(self):
+            matrix = list(self.generator(100, 100))
+            self.assertEqual(len(matrix), 100)
+            self.assertEqual(len(matrix[0]), 100)
+
+        def test_1(self):
+            matrix = list(self.generator(10, 20))
+            self.assertEqual(len(matrix), 10)
+            self.assertEqual(len(matrix[0]), 20)
+
