@@ -2,14 +2,16 @@ from typing import List
 
 
 def find_new_column_position(row: List[int], left: int, right: int, target: int):
-    while right - left > 1:
+    ans = -1
+    while left <= right:
         mid = (right + left) // 2
-        if row[mid] > target:
-            right = mid
+        if row[mid] <= target:
+            left = mid + 1
+            ans = mid
         else:
-            left = mid
+            right = mid - 1
 
-    return right - 1
+    return ans
 
 
 def get_exp_bound(matrix, row_index, column_index: int, target: int):
@@ -37,7 +39,7 @@ def exp_search(matrix: List[List[int]], target: int):
             exp = get_exp_bound(matrix, row_index, column_index, target)
 
             column_index = find_new_column_position(matrix[row_index],
-                                                    -1,
+                                                    0,
                                                     column_index - exp,
                                                     target)
     return False

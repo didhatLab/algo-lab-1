@@ -51,16 +51,18 @@ _Асимптотика_: O(M*log(N))
 ### Экспоненциальный (Внутри запускается бинраный)
 
     def find_new_column_position(row: List[int], left: int, right: int, target: int):
-        while right - left > 1:
+        ans = -1
+        while left <= right:
             mid = (right + left) // 2
-            if row[mid] > target:
-                right = mid
+            if row[mid] <= target:
+                left = mid + 1
+                ans = mid
             else:
-                left = mid
+                right = mid - 1
     
-        return right - 1
-
-
+        return ans
+  
+  
     def get_exp_bound(matrix, row_index, column_index: int, target: int):
         if column_index > 16:
             exp = 2
@@ -69,14 +71,14 @@ _Асимптотика_: O(M*log(N))
             exp >>= 1
         else:
             exp = 0
-    
+  
         return exp
-
-
+  
+  
     def exp_search(matrix: List[List[int]], target: int):
         row_index = 0
         column_index = len(matrix[0]) - 1
-    
+  
         while row_index < len(matrix) and column_index > -1:
             if matrix[row_index][column_index] == target:
                 return True
@@ -84,11 +86,11 @@ _Асимптотика_: O(M*log(N))
                 row_index += 1
             else:
                 exp = get_exp_bound(matrix, row_index, column_index, target)
-    
+  
                 column_index = find_new_column_position(matrix[row_index],
-                                                        -1,
-                                                        column_index - exp,
-                                                        target)
+                                                      0,
+                                                      column_index - exp,
+                                                      target)
         return False
 
 _Асимптотика_: O(M*log(N))
@@ -133,11 +135,14 @@ _Асимптотика_: O(M*log(N))
 ![](TEST_CASE_1_DATA_2.png)
 
 ### Вот еще логарифмические графики:
-#### Первый генератор:
-![](TEST_CASE_1_DATA_1_log.png)
-#### Второй генератор:
-![](TEST_CASE_1_DATA_2_log.png)
 
+#### Первый генератор:
+
+![](TEST_CASE_1_DATA_1_log.png)
+
+#### Второй генератор:
+
+![](TEST_CASE_1_DATA_2_log.png)
 
 ### Вывод
 
@@ -163,6 +168,7 @@ _Асимптотика_: O(M*log(N))
   то же причине, что в первой генерации.
 
 ### Примечание:
+
 Дополнительную информацию о выполнении работы, которая
 напрямую к алгоритмам не относится, можно посмотреть
 а `INFO.md`
